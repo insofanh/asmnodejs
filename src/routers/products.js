@@ -8,4 +8,5 @@ router.get("/products", getAll);
 router.get("/products/:id", get);
 router.put("/products/:id", update);
 router.delete("/products/:id", remove);
+
 export default router;

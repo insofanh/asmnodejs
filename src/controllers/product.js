@@ -1,5 +1,12 @@
+import product from "../models/product";
 import Product from "../models/product";
 import joi from "joi";
+
+const Brand = joi.object({
+    id: joi.string().required(),
+    name: joi.string().required(),
+    slug: joi.string().required()
+})
 
 const Specification = joi.object({
     name: joi.string().required(),
@@ -13,8 +20,8 @@ const Specification = joi.object({
 const productSchema = joi.object({
     name: joi.string().required(),
     price: joi.number(),
-
     descript: joi.string(),
+    brand: joi.array().items(Brand).min(1).required(),
     specifications: joi.array().items(Specification).min(1).required()
 });
 
@@ -101,3 +108,20 @@ export const update = async(req, res) => {
         });
     }
 };
+
+//search
+// app.get('/products/search', (req, res) => {
+//     const { field, keyword } = req.query;
+
+//     // Tạo query object để truy vấn cơ sở dữ liệu theo trường và từ khóa tìm kiếm
+//     const query = {};
+//     query[field] = { $regex: keyword, $options: 'i' };
+
+//     Product.find(query, (err, products) => {
+//         if (err) {
+//             res.status(500).send(err);
+//         } else {
+//             res.send(products);
+//         }
+//     });
+// });
